@@ -1,0 +1,463 @@
+/* ===== Claude Creations – Shared Design System ===== */
+:root {
+  --cc-primary: #4f46e5;
+  --cc-primary-light: #6366f1;
+  --cc-primary-dark: #3730a3;
+  --cc-accent: #7c3aed;
+  --cc-bg: #f8fafc;
+  --cc-surface: #ffffff;
+  --cc-surface-hover: #f1f5f9;
+  --cc-text: #1e293b;
+  --cc-text-secondary: #64748b;
+  --cc-border: #e2e8f0;
+  --cc-success: #10b981;
+  --cc-success-bg: #ecfdf5;
+  --cc-warning: #f59e0b;
+  --cc-radius: 12px;
+  --cc-radius-sm: 8px;
+  --cc-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --cc-shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+  --cc-shadow-lg: 0 10px 15px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
+  --cc-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --cc-transition: 0.2s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--cc-font);
+  background: var(--cc-bg);
+  color: var(--cc-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ===== Header ===== */
+.cc-header {
+  background: var(--cc-surface);
+  border-bottom: 1px solid var(--cc-border);
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--cc-shadow);
+}
+
+.cc-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cc-header-left a {
+  text-decoration: none;
+  color: var(--cc-text);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cc-logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--cc-primary);
+}
+
+.cc-header-sub {
+  font-size: 0.85rem;
+  color: var(--cc-text-secondary);
+  padding-left: 12px;
+  border-left: 1px solid var(--cc-border);
+}
+
+.cc-lang-switcher {
+  display: flex;
+  gap: 4px;
+  background: var(--cc-bg);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.cc-lang-btn {
+  border: none;
+  background: transparent;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background var(--cc-transition);
+  line-height: 1;
+}
+
+.cc-lang-btn:hover { background: var(--cc-border); }
+
+.cc-lang-btn.active {
+  background: var(--cc-primary);
+  box-shadow: var(--cc-shadow);
+}
+
+/* ===== Main Content ===== */
+.cc-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+/* ===== Hero / Intro ===== */
+.cc-hero {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.cc-hero h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--cc-text);
+  margin-bottom: 8px;
+}
+
+.cc-hero p {
+  font-size: 1.05rem;
+  color: var(--cc-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ===== Progress Bar ===== */
+.progress-section {
+  background: var(--cc-surface);
+  border-radius: var(--cc-radius);
+  padding: 24px;
+  margin-bottom: 28px;
+  box-shadow: var(--cc-shadow);
+  border: 1px solid var(--cc-border);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.progress-header h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.progress-count {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--cc-primary);
+}
+
+.progress-count .total {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--cc-text-secondary);
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 12px;
+  background: var(--cc-bg);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--cc-border);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cc-primary), var(--cc-accent));
+  border-radius: 6px;
+  transition: width 0.4s ease;
+  min-width: 0;
+}
+
+.progress-bar-fill.complete {
+  background: linear-gradient(90deg, var(--cc-success), #34d399);
+}
+
+.progress-status {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--cc-text-secondary);
+  text-align: center;
+}
+
+.progress-status.complete {
+  color: var(--cc-success);
+  font-weight: 600;
+}
+
+/* ===== Guide Section ===== */
+.guide-section {
+  background: var(--cc-surface);
+  border-radius: var(--cc-radius);
+  padding: 24px;
+  margin-bottom: 28px;
+  box-shadow: var(--cc-shadow);
+  border: 1px solid var(--cc-border);
+}
+
+.guide-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  text-align: left;
+}
+
+.guide-toggle h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.guide-toggle-icon {
+  font-size: 1.2rem;
+  transition: transform var(--cc-transition);
+  color: var(--cc-text-secondary);
+}
+
+.guide-toggle-icon.open {
+  transform: rotate(180deg);
+}
+
+.guide-content {
+  display: none;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--cc-border);
+}
+
+.guide-content.open { display: block; }
+
+.guide-steps {
+  list-style: none;
+  counter-reset: steps;
+}
+
+.guide-steps li {
+  counter-increment: steps;
+  padding: 12px 0 12px 40px;
+  position: relative;
+  border-bottom: 1px solid var(--cc-border);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.guide-steps li:last-child { border-bottom: none; }
+
+.guide-steps li::before {
+  content: counter(steps);
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 28px;
+  height: 28px;
+  background: var(--cc-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.guide-steps li strong {
+  color: var(--cc-primary-dark);
+}
+
+.guide-tip {
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  border-radius: var(--cc-radius-sm);
+  padding: 12px 16px;
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: #92400e;
+}
+
+.guide-tip::before {
+  content: '💡 ';
+}
+
+/* ===== NPC Area Cards ===== */
+.area-card {
+  background: var(--cc-surface);
+  border-radius: var(--cc-radius);
+  margin-bottom: 16px;
+  box-shadow: var(--cc-shadow);
+  border: 1px solid var(--cc-border);
+  overflow: hidden;
+}
+
+.area-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--cc-transition);
+}
+
+.area-header:hover { background: var(--cc-surface-hover); }
+
+.area-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.area-icon {
+  font-size: 1.3rem;
+}
+
+.area-name {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.area-counter {
+  font-size: 0.85rem;
+  color: var(--cc-text-secondary);
+  background: var(--cc-bg);
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.area-counter.complete {
+  background: var(--cc-success-bg);
+  color: var(--cc-success);
+}
+
+.area-body {
+  border-top: 1px solid var(--cc-border);
+  padding: 8px 12px;
+}
+
+/* ===== NPC Checkboxes ===== */
+.npc-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: var(--cc-radius-sm);
+  transition: background var(--cc-transition);
+  gap: 12px;
+}
+
+.npc-item:hover { background: var(--cc-surface-hover); }
+
+.npc-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--cc-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all var(--cc-transition);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.npc-checkbox:hover { border-color: var(--cc-primary-light); }
+
+.npc-checkbox:checked {
+  background: var(--cc-primary);
+  border-color: var(--cc-primary);
+}
+
+.npc-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.npc-label {
+  cursor: pointer;
+  flex: 1;
+  font-size: 0.95rem;
+  transition: color var(--cc-transition);
+}
+
+.npc-item.checked .npc-label {
+  color: var(--cc-text-secondary);
+  text-decoration: line-through;
+}
+
+/* ===== Reset Button ===== */
+.reset-section {
+  text-align: center;
+  margin-top: 36px;
+}
+
+.reset-btn {
+  background: transparent;
+  border: 2px solid var(--cc-border);
+  color: var(--cc-text-secondary);
+  padding: 10px 28px;
+  border-radius: var(--cc-radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all var(--cc-transition);
+  font-family: var(--cc-font);
+}
+
+.reset-btn:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: #fef2f2;
+}
+
+/* ===== Footer ===== */
+.cc-footer {
+  text-align: center;
+  padding: 24px 20px;
+  color: var(--cc-text-secondary);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--cc-border);
+  margin-top: 40px;
+}
+
+.cc-footer a {
+  color: var(--cc-primary);
+  text-decoration: none;
+}
+
+.cc-footer a:hover { text-decoration: underline; }
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .cc-header { padding: 0 16px; }
+  .cc-header-sub { display: none; }
+  .cc-main { padding: 20px 14px 60px; }
+  .cc-hero h1 { font-size: 1.5rem; }
+  .cc-hero p { font-size: 0.95rem; }
+  .progress-section, .guide-section { padding: 18px; }
+  .area-header { padding: 14px 16px; }
+  .area-body { padding: 4px 8px; }
+  .npc-item { padding: 8px; }
+}

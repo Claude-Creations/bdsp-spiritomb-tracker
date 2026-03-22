@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track your progress talking to all 32 Grand Underground NPCs to unlock Spiritomb in Pokémon Brilliant Diamond & Shining Pearl.">
+  <title>BDSP Spiritomb Tracker</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👻</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="cc-header">
+    <div class="cc-header-left">
+      <a href="https://claude-creations.github.io">
+        <span class="cc-logo">Claude Creations</span>
+      </a>
+      <span class="cc-header-sub">BDSP Spiritomb Tracker</span>
+    </div>
+    <div class="cc-lang-switcher">
+      <button class="cc-lang-btn" data-lang="en" onclick="setLanguage('en')" title="English">🇬🇧</button>
+      <button class="cc-lang-btn" data-lang="de" onclick="setLanguage('de')" title="Deutsch">🇩🇪</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="cc-main">
+
+    <!-- Hero -->
+    <section class="cc-hero">
+      <h1 data-i18n="heroTitle">Spiritomb NPC Tracker</h1>
+      <p data-i18n="heroDesc">Track which NPCs you've talked to in the Grand Underground to unlock Spiritomb in Pokémon Brilliant Diamond &amp; Shining Pearl.</p>
+    </section>
+
+    <!-- Progress -->
+    <section class="progress-section">
+      <div class="progress-header">
+        <h2 data-i18n="progressTitle">Progress</h2>
+        <span class="progress-count" id="progress-count">0 <span class="total">/ 32</span></span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
+      </div>
+      <p class="progress-status" id="progress-status">You need 32 of 35 NPCs.</p>
+    </section>
+
+    <!-- Guide -->
+    <section class="guide-section">
+      <button class="guide-toggle" onclick="toggleGuide()">
+        <h2 data-i18n="guideTitle">How to Get Spiritomb</h2>
+        <span class="guide-toggle-icon" id="guide-icon">▼</span>
+      </button>
+      <div class="guide-content" id="guide-content">
+        <ol class="guide-steps">
+          <li data-i18n="guideStep1">Get the <strong>Explorer Kit</strong> from the Underground Man in Eterna City.</li>
+          <li data-i18n="guideStep2">Obtain an <strong>Odd Keystone</strong> — find one on Route 208 (from the Black Belt NPC), dig one up in the Grand Underground, or find the hidden one in Twinleaf Town.</li>
+          <li data-i18n="guideStep3">Go to Route 209 and interact with the <strong>Hallowed Tower</strong> (the broken stone tower) to place the Odd Keystone.</li>
+          <li data-i18n="guideStep4">Enter the Grand Underground and <strong>talk to 32 unique named NPCs</strong>. Use the checklist below to track your progress. Sphere Traders do NOT count.</li>
+          <li data-i18n="guideStep5">Once you've talked to 32 NPCs, return to the <strong>Hallowed Tower</strong> on Route 209 and interact with it to encounter <strong>Spiritomb (Lv. 25)</strong>.</li>
+        </ol>
+        <div class="guide-tip" data-i18n="guideTip">To respawn NPCs quickly, enter and exit a Pokémon Hideaway. Each area has NPCs that spawn more frequently there, but any NPC can appear anywhere.</div>
+      </div>
+    </section>
+
+    <!-- NPC Checklist -->
+    <div id="npc-areas"></div>
+
+    <!-- Reset -->
+    <div class="reset-section">
+      <button class="reset-btn" onclick="resetProgress()" data-i18n="resetBtn">Reset All Progress</button>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="cc-footer">
+    <span data-i18n="footerText">A Claude Creations project.</span>
+    <a href="https://claude-creations.github.io" data-i18n="footerHome">Home</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -97,17 +97,21 @@ const TOTAL_NPCS = 35;
 const REQUIRED_NPCS = 32;
 const STORAGE_KEY = 'bdsp-spiritomb-checked';
 const LANG_KEY = 'cc-language';
+const THEME_KEY = 'cc-theme';
 
 // ===== State =====
 let checkedNpcs = {};
 let currentLang = 'en';
+let currentTheme = 'light';
 
 // ===== Init =====
 function init() {
+  loadTheme();
   loadLanguage();
   loadProgress();
   renderPage();
   applyLanguage();
+  applyTheme();
   updateProgress();
 }
 
@@ -264,6 +268,28 @@ function resetProgress() {
   saveProgress();
   renderPage();
   updateProgress();
+}
+
+// ===== Theme =====
+function loadTheme() {
+  const saved = localStorage.getItem(THEME_KEY);
+  if (saved === 'dark' || saved === 'light') {
+    currentTheme = saved;
+  } else {
+    currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+}
+
+function toggleTheme() {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem(THEME_KEY, currentTheme);
+  applyTheme();
+}
+
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  const btn = document.getElementById('theme-btn');
+  if (btn) btn.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
 }
 
 // ===== Start =====

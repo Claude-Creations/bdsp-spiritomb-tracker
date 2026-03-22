@@ -18,7 +18,6 @@ const T = {
     resetConfirm: 'Are you sure you want to reset all progress?',
     footerText: 'A Claude Creations project.',
     footerHome: 'Home',
-    // Areas
     areaMain: 'Roaming (All Areas)',
     areaCentral: 'Central (Celestic Town)',
     areaTopLeft: 'Top-Left (Snowpoint City Region)',
@@ -53,43 +52,88 @@ const T = {
   }
 };
 
-// ===== NPC Data =====
+// ===== NPC Name Mapping (ID → display name per language) =====
+// IDs are stable internal keys; display names change with language
+const NPC_NAMES = {
+  leilani:   { en: 'Leilani',   de: 'Andrea' },
+  kawika:    { en: 'Kawika',    de: 'Marko' },
+  guy:       { en: 'Guy',       de: 'Jonathan' },
+  donn:      { en: 'Donn',      de: 'David' },
+  meredyth:  { en: 'Meredyth',  de: 'Maggie' },
+  maika:     { en: 'Maika',     de: 'Sonja' },
+  blaire:    { en: 'Blaire',    de: 'Miriam' },
+  rita:      { en: 'Rita',      de: 'Miranda' },
+  dane:      { en: 'Dane',      de: 'Thorsten' },
+  reggie:    { en: 'Reggie',    de: 'Gaston' },
+  ryuki:     { en: 'Ryuki',     de: 'Nils' },
+  troye:     { en: 'Troye',     de: 'Flo' },
+  harper:    { en: 'Harper',    de: 'Inez' },
+  reika:     { en: 'Reika',     de: 'Zuzanna' },
+  elishah:   { en: 'Elishah',   de: 'Martin' },
+  leticia:   { en: 'Leticia',   de: 'Livia' },
+  michelle:  { en: 'Michelle',  de: 'Patricia' },
+  reade:     { en: 'Reade',     de: 'Luis' },
+  roy:       { en: 'Roy',       de: 'Lukas' },
+  teena:     { en: 'Teena',     de: 'Merle' },
+  polly:     { en: 'Polly',     de: 'Christina' },
+  dugal:     { en: 'Dugal',     de: 'Friedrich' },
+  kellyn:    { en: 'Kellyn',    de: 'Arnold' },
+  mireille:  { en: 'Mireille',  de: 'Ronja' },
+  kiera:     { en: 'Kiera',     de: 'Alana' },
+  samuel:    { en: 'Samuel',    de: 'Tim' },
+  shayne:    { en: 'Shayne',    de: 'Taylor' },
+  eileen:    { en: 'Eileen',    de: 'Amber' },
+  emmy:      { en: 'Emmy',      de: 'Suse' },
+  adrienne:  { en: 'Adrienne',  de: 'Alfreda' },
+  seamus:    { en: 'Seamus',    de: 'Hubert' },
+  matthew:   { en: 'Matthew',   de: 'Fabio' },
+  meri:      { en: 'Meri',      de: 'Beth' },
+  perdita:   { en: 'Perdita',   de: 'Mélody' },
+  dilan:     { en: 'Dilan',     de: 'Bernhard' },
+};
+
+function npcName(id) {
+  const entry = NPC_NAMES[id];
+  return entry ? (entry[currentLang] || entry.en) : id;
+}
+
+// ===== NPC Data (using stable IDs) =====
 const NPC_AREAS = [
   {
     id: 'main',
     nameKey: 'areaMain',
     icon: '🗺️',
-    npcs: ['Samuel', 'Shayne', 'Eileen', 'Emmy', 'Adrienne', 'Seamus', 'Matthew', 'Meri', 'Perdita', 'Dilan']
+    npcs: ['samuel', 'shayne', 'eileen', 'emmy', 'adrienne', 'seamus', 'matthew', 'meri', 'perdita', 'dilan']
   },
   {
     id: 'central',
     nameKey: 'areaCentral',
     icon: '⛩️',
-    npcs: ['Leilani']
+    npcs: ['leilani']
   },
   {
     id: 'topLeft',
     nameKey: 'areaTopLeft',
     icon: '❄️',
-    npcs: ['Kawika', 'Guy', 'Donn', 'Meredyth', 'Maika']
+    npcs: ['kawika', 'guy', 'donn', 'meredyth', 'maika']
   },
   {
     id: 'topRight',
     nameKey: 'areaTopRight',
     icon: '⚔️',
-    npcs: ['Blaire', 'Rita', 'Dane', 'Reggie', 'Ryuki', 'Troye', 'Harper']
+    npcs: ['blaire', 'rita', 'dane', 'reggie', 'ryuki', 'troye', 'harper']
   },
   {
     id: 'bottomLeft',
     nameKey: 'areaBottomLeft',
     icon: '🏠',
-    npcs: ['Reika', 'Elishah', 'Leticia', 'Michelle', 'Reade', 'Roy', 'Teena']
+    npcs: ['reika', 'elishah', 'leticia', 'michelle', 'reade', 'roy', 'teena']
   },
   {
     id: 'bottomRight',
     nameKey: 'areaBottomRight',
     icon: '⚡',
-    npcs: ['Polly', 'Dugal', 'Kellyn', 'Mireille', 'Kiera']
+    npcs: ['polly', 'dugal', 'kellyn', 'mireille', 'kiera']
   }
 ];
 
@@ -129,7 +173,9 @@ function loadLanguage() {
 function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem(LANG_KEY, lang);
+  renderPage();
   applyLanguage();
+  updateProgress();
 }
 
 function t(key) {
@@ -149,7 +195,6 @@ function applyLanguage() {
     btn.classList.toggle('active', btn.dataset.lang === currentLang);
   });
 
-  // Update area names and counters
   NPC_AREAS.forEach(area => {
     const nameEl = document.querySelector(`[data-area-name="${area.id}"]`);
     if (nameEl) nameEl.textContent = t(area.nameKey);
@@ -181,25 +226,21 @@ function updateProgress() {
   const pct = Math.round((count / REQUIRED_NPCS) * 100);
   const isComplete = count >= REQUIRED_NPCS;
 
-  // Update counter
   const countEl = document.getElementById('progress-count');
   if (countEl) countEl.innerHTML = `${count} <span class="total">/ ${REQUIRED_NPCS}</span>`;
 
-  // Update bar
   const bar = document.getElementById('progress-bar');
   if (bar) {
     bar.style.width = Math.min(pct, 100) + '%';
     bar.classList.toggle('complete', isComplete);
   }
 
-  // Update status text
   const statusEl = document.getElementById('progress-status');
   if (statusEl) {
     statusEl.textContent = isComplete ? t('progressComplete') : t('progressNeeded');
     statusEl.classList.toggle('complete', isComplete);
   }
 
-  // Update area counters
   NPC_AREAS.forEach(area => {
     const checked = area.npcs.filter(n => checkedNpcs[n]).length;
     const counterEl = document.querySelector(`[data-area-counter="${area.id}"]`);
@@ -225,12 +266,12 @@ function renderPage() {
         <span class="area-counter" data-area-counter="${area.id}">0 / ${area.npcs.length}</span>
       </div>
       <div class="area-body" id="area-${area.id}">
-        ${area.npcs.map(npc => `
-          <label class="npc-item ${checkedNpcs[npc] ? 'checked' : ''}">
-            <input type="checkbox" class="npc-checkbox" data-npc="${npc}"
-              ${checkedNpcs[npc] ? 'checked' : ''}
-              onchange="toggleNpc('${npc}', this)">
-            <span class="npc-label">${npc}</span>
+        ${area.npcs.map(id => `
+          <label class="npc-item ${checkedNpcs[id] ? 'checked' : ''}">
+            <input type="checkbox" class="npc-checkbox" data-npc="${id}"
+              ${checkedNpcs[id] ? 'checked' : ''}
+              onchange="toggleNpc('${id}', this)">
+            <span class="npc-label">${npcName(id)}</span>
           </label>
         `).join('')}
       </div>
@@ -243,8 +284,8 @@ function toggleArea(areaId) {
   if (body) body.style.display = body.style.display === 'none' ? 'block' : 'none';
 }
 
-function toggleNpc(npc, checkbox) {
-  checkedNpcs[npc] = checkbox.checked;
+function toggleNpc(id, checkbox) {
+  checkedNpcs[id] = checkbox.checked;
   const item = checkbox.closest('.npc-item');
   if (item) item.classList.toggle('checked', checkbox.checked);
   saveProgress();
